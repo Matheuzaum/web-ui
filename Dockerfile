@@ -55,7 +55,7 @@ WORKDIR /app
 
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt gunicorn==21.2.0 gevent==23.9.1
 
 # Install Playwright and browsers with system dependencies
 ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
@@ -72,10 +72,11 @@ ENV CHROME_PATH=/ms-playwright/chromium-*/chrome-linux/chrome
 ENV ANONYMIZED_TELEMETRY=false
 ENV DISPLAY=:99
 ENV RESOLUTION=1920x1080x24
-ENV VNC_PASSWORD=vncpassword
+ENV VNC_PASSWORD=password123
 ENV CHROME_PERSISTENT_SESSION=true
 ENV RESOLUTION_WIDTH=1920
 ENV RESOLUTION_HEIGHT=1080
+ENV PORT=7788
 
 # Set up supervisor configuration
 RUN mkdir -p /var/log/supervisor
@@ -83,4 +84,4 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 7788 6080 5901
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["sh", "-c", "gunicorn webui:app --bind 0.0.0.0:${PORT} --worker-class gevent"]
