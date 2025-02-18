@@ -84,4 +84,4 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 7788 6080 5901
 
-CMD ["sh", "-c", "gunicorn webui:app --bind 0.0.0.0:${PORT} --worker-class gevent"]
+CMD ["sh", "-c", "gunicorn webui:app --bind 0.0.0.0:7788 --worker-class gevent"]
