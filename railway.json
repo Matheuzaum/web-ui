@@ -29,7 +29,7 @@
     "variables": {
       "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright",
       "CHROME_PERSISTENT_SESSION": "false",
-      "PYTHONPATH": "/app/.venv/lib/python3.11/site-packages"  # Garante acesso aos pacotes
+      "PYTHONPATH": "/app/.venv/lib/python3.11/site-packages"
     },
     "ports": [
       {
