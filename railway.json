@@ -16,6 +16,7 @@
             "python -m pip install --upgrade pip uv",
             "uv venv --python 3.11",
             "source .venv/bin/activate",
+            "uv pip install langchain-google-genai==2.1.0 google-generativeai==0.8.4 google-ai-generativelanguage==0.6.16",
             "uv pip install -r requirements.txt",
             "playwright install --with-deps chromium"
           ]
@@ -27,16 +28,13 @@
     "startCommand": "python webui.py --ip 0.0.0.0 --port 7788",
     "variables": {
       "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright",
-      "CHROME_PERSISTENT_SESSION": "false"
+      "CHROME_PERSISTENT_SESSION": "false",
+      "GOOGLE_API_KEY": "sua_chave_aqui"
     },
     "ports": [
       {
         "port": 7788,
         "protocol": "http"
-      },
-      {
-        "port": 6080,
-        "protocol": "tcp"
       }
     ]
   }
