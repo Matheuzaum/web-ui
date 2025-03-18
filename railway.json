@@ -3,11 +3,41 @@
     "builder": "NIXPACKS",
     "config": {
       "nixpacksPlan": {
-        "providers": { "python": "3.11" }
+        "providers": {
+          "python": "3.11",
+          "node": "18"
+        },
+        "phases": {
+          "setup": [
+            "apt-get update",
+            "apt-get install -y wget gnupg libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libxkbcommon0 libdrm2 libgbm1 libasound2"
+          ],
+          "install": [
+            "python -m pip install --upgrade pip uv",
+            "uv venv --python 3.11",
+            "source .venv/bin/activate",
+            "uv pip install -r requirements.txt",
+            "playwright install --with-deps chromium"
+          ]
+        }
       }
     }
   },
   "deploy": {
-    "startCommand": "python webui.py --ip 0.0.0.0 --port 7788"
+    "startCommand": "python webui.py --ip 0.0.0.0 --port 7788",
+    "variables": {
+      "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright",
+      "CHROME_PERSISTENT_SESSION": "false"
+    },
+    "ports": [
+      {
+        "port": 7788,
+        "protocol": "http"
+      },
+      {
+        "port": 6080,
+        "protocol": "tcp"
+      }
+    ]
   }
 }
