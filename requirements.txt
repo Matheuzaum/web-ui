@@ -4,3 +4,7 @@ gradio==5.10.0
 json-repair
 langchain-mistralai==0.2.4
 langchain-google-genai==2.1.0
+MainContentExtractor==0.0.4
+trafilatura==6.0.0
+lxml==5.2.1
+cssselect==1.2.0
