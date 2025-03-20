@@ -1,42 +1,41 @@
 {
-    "build": {
-      "builder": "NIXPACKS",
-      "config": {
-        "nixpacksPlan": {
-          "providers": {
-            "python": "3.11",
-            "node": "18"
-          },
-          "phases": {
-            "setup": [
-              "apt-get update",
-              "apt-get install -y wget gnupg libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libxkbcommon0 libdrm2 libgbm1 libasound2",
-              "apt-get install -y xvfb libx11-xcb1 libxcb-dri3-0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2"
-            ],
-            "install": [
-              "python -m pip install --upgrade 'pip==25.0.1'",
-              "uv venv --python 3.11",
-              "source .venv/bin/activate",
-              "uv pip install --system --no-cache-dir -r requirements.txt",
-              "uv pip install --system --no-cache-dir langchain-google-genai==2.1.0 google-generativeai==0.8.4 google-ai-generativelanguage==0.6.16 playwright==1.42.0",
-              "playwright install --with-deps chromium"
-            ]
-          }
+  "build": {
+    "builder": "NIXPACKS",
+    "config": {
+      "nixpacksPlan": {
+        "providers": {
+          "python": "3.11",
+          "node": "18"
+        },
+        "phases": {
+          "setup": [
+            "apt-get update",
+            "apt-get install -y wget gnupg libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libxkbcommon0 libdrm2 libgbm1 libasound2"
+          ],
+          "install": [
+            "python -m pip install --upgrade 'pip==25.0.1'",
+            "uv venv --python 3.11",
+            "source .venv/bin/activate",
+            "uv pip install --system --no-cache-dir -r requirements.txt",
+            "uv pip install --system --no-cache-dir langchain-google-genai==2.1.0 google-generativeai==0.8.4 google-ai-generativelanguage==0.6.16 playwright==1.42.0",
+            "playwright install --with-deps chromium"
+          ]
         }
       }
-    },
-    "deploy": {
-      "startCommand": "xvfb-run -a sh -c 'python webui.py --ip 0.0.0.0 --port 7788'",
-      "variables": {
-        "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright",
-        "CHROME_PERSISTENT_SESSION": "false",
-        "PYTHONPATH": "/app/.venv/lib/python3.11/site-packages"
-      },
-      "ports": [
-        {
-          "port": 7788,
-          "protocol": "http"
-        }
-      ]
     }
+  },
+  "deploy": {
+    "startCommand": "python webui.py --ip 0.0.0.0 --port 7788",
+    "variables": {
+      "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright",
+      "CHROME_PERSISTENT_SESSION": "false",
+      "PYTHONPATH": "/app/.venv/lib/python3.11/site-packages"
+    },
+    "ports": [
+      {
+        "port": 7788,
+        "protocol": "http"
+      }
+    ]
   }
+}
