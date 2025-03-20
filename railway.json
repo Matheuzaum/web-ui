@@ -10,7 +10,7 @@
         "phases": {
           "setup": [
             "apt-get update",
-            "apt-get install -y wget gnupg libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libxkbcommon0 libdrm2 libgbm1 libasound2 xvfb x11-utils"
+            "apt-get install -y wget gnupg libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libxkbcommon0 libdrm2 libgbm1 libasound2"
           ],
           "install": [
             "python -m pip install --upgrade 'pip==25.0.1'",
@@ -25,12 +25,11 @@
     }
   },
   "deploy": {
-    "startCommand": "Xvfb :99 -screen 0 1920x1080x24 & export DISPLAY=:99 && python webui.py --ip 0.0.0.0 --port 7788",
+    "startCommand": "python webui.py --ip 0.0.0.0 --port 7788",
     "variables": {
       "PLAYWRIGHT_BROWSERS_PATH": "/ms-playwright",
       "CHROME_PERSISTENT_SESSION": "false",
-      "PYTHONPATH": "/app/.venv/lib/python3.11/site-packages",
-      "DISPLAY": ":99"
+      "PYTHONPATH": "/app/.venv/lib/python3.11/site-packages"
     },
     "ports": [
       {
