@@ -4,8 +4,7 @@
     "config": {
       "nixpacksPlan": {
         "providers": {
-          "python": "3.11",
-          "node": "18"
+          "python": "3.13.0"
         },
         "phases": {
           "setup": [
@@ -14,7 +13,7 @@
           ],
           "install": [
             "python -m pip install --upgrade 'pip==25.0.1'",
-            "uv venv --python 3.11",
+            "uv venv --python 3.13.0",
             "source .venv/bin/activate",
             "uv pip install --system --no-cache-dir -r requirements.txt",
             "uv pip install --system --no-cache-dir langchain-google-genai==2.1.2 google-generativeai==0.8.4 google-ai-generativelanguage==0.6.17 playwright==1.51.0",
